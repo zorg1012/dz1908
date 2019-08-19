@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function create(tag) {
+            return document.createElement(tag)
+        }
+        let input4 = create('input')
+        input4.placeholder = "id"
+        input4.style.color = "black"
+        input4.style.borderColor = "black"
+        let button = create('button')
+        button.innerText = 'getById'
+        let div = create('div')
+        document.body.appendChild(input4)
+        document.body.appendChild(button)
+        document.body.appendChild(div)
+        button.onclick = async () => {
+            let id = input4.value
+            if (!isNaN(id)) {
+                let res = await fetch('http://localhost:3000/users/' + id,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    .then((e) => e.json())
+                    .then((q) => div.innerText = JSON.stringify(q))
+            } else if (isNaN(id)) {
+                input3.style.color = "red"
+                input3.style.borderColor = "red"
+            }
+            [...document.getElementsByTagName('input')].forEach((input) => input.onclick = () => {
+                input.style.color = "black"
+                input.style.borderColor = "black"
+            })
+        }
+    </script>
+
+</body>
+
+</html>

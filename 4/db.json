@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "name": "Roman",
+      "surName": "Levchenko",
+      "age": "30",
+      "sex": "male",
+      "id": 1
+    },
+    {
+      "name": "Vtoroi",
+      "surName": "Tip",
+      "age": "666",
+      "sex": "male",
+      "id": 2
+    },
+    {
+      "name": "trata",
+      "surName": "ta",
+      "age": "20",
+      "sex": "female",
+      "id": 3
+    }
+  ]
+}

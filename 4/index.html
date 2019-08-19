@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function create(tag) {
+            return document.createElement(tag)
+        }
+
+        let input = create('input')
+        input.placeholder = "1st name"
+        input.style.color = "black"
+        input.style.borderColor = "black"
+        let input2 = create('input')
+        input2.style.color = "black"
+        input2.style.borderColor = "black"
+        input2.placeholder = "2st name"
+        let input3 = create('input')
+        input3.style.color = "black"
+        input3.style.borderColor = "black"
+        input3.placeholder = "age"
+        let input4 = create('input')
+        input4.placeholder = "id"
+        input4.style.color = "black"
+        input4.style.borderColor = "black"
+        let select = create('select')
+        select.options[select.options.length] = new Option('male', 'male')
+        select.options[select.options.length] = new Option('female', 'female')
+        let button = create('button')
+        button.innerText = 'send'
+
+        document.body.appendChild(input)
+        document.body.appendChild(input2)
+        document.body.appendChild(input3)
+        document.body.appendChild(input4)
+        document.body.appendChild(select)
+        document.body.appendChild(button)
+        
+        button.onclick = async () => {
+            let name = input.value
+            let surName = input2.value
+            let age = input3.value
+            let sex = select.value
+            let id = input4.value
+            if (isNaN(name)&&isNaN(surName)&&!isNaN(age)&&!isNaN(id)){
+                let obj = { name, surName, age, sex, id }
+                let json = JSON.stringify(obj)
+                let res = await fetch('http://localhost:3000/users/'+id, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                },
+                body: json
+            })
+
+            console.log(await res.json())
+        }else if(isNaN(age)){
+            input3.style.color = "red"
+            input3.style.borderColor = "red"
+        }else if(!isNaN(surName)) {
+            input2.style.color = "red"
+            input2.style.borderColor = "red"
+        }else if(!isNaN(name)) {
+            input.style.color = "red"
+            input.style.borderColor = "red"
+        }
+            
+        }
+        [...document.getElementsByTagName('input')].forEach((input) => input.onclick = ()=>{
+            input.style.color = "black"
+            input.style.borderColor = "black"
+        })
+
+    </script>
+
+</body>
+
+</html>
